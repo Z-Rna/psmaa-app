@@ -15,6 +15,7 @@ import { RouterLink, RouterView } from 'vue-router';
                 <RouterLink :to="{name: 'alt_smaa2'}">Alternatives</RouterLink>
                 <RouterLink :to="{name: 'cri_smaa2'}">Criterions</RouterLink>
                 <RouterLink :to="{name: 'pref_smaa2'}">Preference</RouterLink>
+                <RouterLink :to="{name: 'results_smaa2'}">Results</RouterLink>
             </ul>
         </nav>
         <div class="list">

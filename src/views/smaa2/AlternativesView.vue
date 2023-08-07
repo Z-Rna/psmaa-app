@@ -3,6 +3,7 @@ import { ref, watch, reactive } from "vue";
 import { uid } from 'uid';
 import AddAlternative from "../../components/SMAA2/AddAlternative.vue";
 import AlternativeItem from "../../components/SMAA2/AlternativeItem.vue";
+import axios from 'axios';
 
 const altState = reactive({
     alt: "Alternative 1",

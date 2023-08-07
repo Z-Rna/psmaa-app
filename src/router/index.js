@@ -48,7 +48,12 @@ const router = createRouter({
         {
           path: "preference",
           name: "pref_smaa2",
-          component: () => import('../views/smaa2/PreferenceVue.vue')
+          component: () => import('../views/smaa2/PreferenceVue.vue'),
+        },
+        {
+          path: 'results',
+          name: 'results_smaa2',
+          component: () => import('../views/smaa2/ResultVue.vue'),
         }
       ]
     },
