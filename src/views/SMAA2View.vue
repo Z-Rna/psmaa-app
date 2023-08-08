@@ -51,7 +51,7 @@ h1 {
 .list {
   display: flex;
   flex-direction: column;
-  max-width: 700px;
+  max-width: 50%;
   width: 100%;
   margin: 0 auto;
   padding: 40px 16px;
