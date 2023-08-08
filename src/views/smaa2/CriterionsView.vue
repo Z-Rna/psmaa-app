@@ -56,19 +56,39 @@ const fetchCriList = () => {
             const altNames = cri.altList.map((alt) => alt.alt)
             for (let alt of altListNames) {
                 if (!altNames.includes(alt)) {
-                    cri.altList.push({
-                        alt: alt,
-                        value: 0.0,
-                    })
+                    if (cri.type == 'cardinal') {
+                            cri.altList.push({
+                            alt: alt,
+                            value: 0.0,
+                        })
+                    }
+                    else {
+                        cri.altList.push({
+                            alt: alt,
+                            value: cri.altList.length + 1,
+                        })
+                    }
+                    
                 }
             }
             for (let alt of altNames) {
                 if(!altListNames.includes(alt)){
-                    cri.altList = cri.altList.filter((a) => a.alt !== alt)
+                    if (cri.type == 'cardinal') {
+                        cri.altList = cri.altList.filter((a) => a.alt !== alt)
+                    }
+                    else {
+                        let newAltList = []
+                        let altVal = cri.altList.filter((a) => a.alt == alt)[0].value
+                        cri.altList = cri.altList.filter((a) => a.alt !== alt)
+                        for (let a of cri.altList) {
+                            if (a.value > altVal){
+                                a.value += -1
+                            }
+                        }
+                    }
                 }
             }
         }
-        // console.log(altListNames)
         
         return;
     }
@@ -110,6 +130,17 @@ const updateAltList = (value, pos, altPos) => {
 
 }
 
+const updateAltListOrdinal = (value, pos, altPos) => {
+    const altList = criList.value[pos].altList
+    for ( let alt of altList) {
+        if (alt.value == value) {
+            alt.value = altList[altPos].value
+            break
+        }
+    }
+    altList[altPos].value = value
+}
+
 const deleteCri = (id) => {
     if (criList.value.length == 1) {
         alert("You can't remove the last criterion");
@@ -132,6 +163,7 @@ const deleteCri = (id) => {
             @update-ascending="updateAscending"
             @update-type="updateType"
             @update-alt-list="updateAltList"
+            @update-alt-list-ordinal="updateAltListOrdinal"
             @delete-cri="deleteCri"
             />
         </ul>

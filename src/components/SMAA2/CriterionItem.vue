@@ -16,6 +16,7 @@ defineEmits(["edit-cri",
             "update-ascending",
             "update-type",
             "update-alt-list",
+            "update-alt-list-ordinal",
             "delete-cri",
             ]);
 </script>
@@ -53,9 +54,21 @@ defineEmits(["edit-cri",
                     {{ cri.ascending }}
                 </span>
             </div>
-            <div>
+            <div v-if="cri.type === 'ordinal'">
                 <li v-for="(alt, alt_index) in cri.altList" class="alt-list">
-                    <label>{{alt.alt}}: </label>
+                    <label> {{alt.alt}}: </label>
+                    <select class="select-mes" v-if="cri.isEditing" :value="alt.value"
+                    @change="$emit('update-alt-list-ordinal', $event.target.value, index, alt_index)">
+                            <option v-for="val in cri.altList.length" :value="val">{{ val }}</option>
+                    </select>
+                    <span v-else>
+                        {{ alt.value }}
+                    </span>
+                </li>
+            </div>
+            <div v-else>
+                <li v-for="(alt, alt_index) in cri.altList" class="alt-list">
+                    <label> {{alt.alt}}: </label>
                     <input v-if="cri.isEditing" type="number" step="any" placeholder="0.0" 
                     :value="alt.value"
                     @input="$emit('update-alt-list', $event.target.value, index, alt_index)">
@@ -64,6 +77,7 @@ defineEmits(["edit-cri",
                     </span>
                 </li>
             </div>
+            
             
         </div>
         <div class="alt-actions">
@@ -130,6 +144,9 @@ li {
       width: 100%;
       padding: 2px 6px;
       border: 2px solid #41b080;
+    }
+    .select-mes {
+        width: 6%;
     }
     select {
         width: 100%;

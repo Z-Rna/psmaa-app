@@ -74,7 +74,7 @@ const updatePref = (value, pos) => {
         preferenceOption.preferenceArray[pos].value = value;
     }
     if (preferenceOption.name === "ordinal") {
-        let posOld = 5;
+        let posOld = 0;
         for (let i = 0; i < preferenceOption.preferenceArray.length; i++) {
             if (preferenceOption.preferenceArray[i].value === value) {
                 posOld = i;
